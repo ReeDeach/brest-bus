@@ -1,0 +1,12 @@
+name: Проверка доступа
+on: workflow_dispatch
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Скачать страницу
+        run: |
+          code=$(curl -sS -L --max-time 30 -o page.html -w "%{http_code}" https://av.brest.by/prigorod.html || echo "fail")
+          echo "HTTP: $code"
+          echo "Размер: $(wc -c < page.html 2>/dev/null) байт"
+          echo "Строк с Кобрин: $(grep -c 'Кобрин' page.html)"
