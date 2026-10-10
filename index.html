@@ -1,54 +1,113 @@
 <!DOCTYPE html><html lang="ru"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b6bcb">
+<meta name="theme-color" content="#0b5fd1">
 <link rel="manifest" href="manifest.json"><link rel="icon" href="icon.svg">
 <title>Автобусы из Бреста</title>
 <style>
-:root{--bg:#f4f6f9;--cd:#fff;--tx:#14213d;--mu:#6b7686;--ac:#0b6bcb;--ln:#e3e8ef;--ok:#0a7d4b}
-@media(prefers-color-scheme:dark){:root{--bg:#0e141b;--cd:#18212c;--tx:#e8edf3;--mu:#93a0b1;--ac:#5aa9ff;--ln:#263241;--ok:#4cd199}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.4 system-ui,sans-serif;padding-top:env(safe-area-inset-top)}
-header{background:#0b6bcb;color:#fff;padding:14px 16px 12px}
-h1{margin:0;font-size:20px}
-header p{margin:2px 0 0;font-size:13px;opacity:.9}
-header a{color:#fff;font-weight:600}
-.bar{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 12px 8px;border-bottom:1px solid var(--ln)}
-input[type=search]{width:100%;font:inherit;padding:12px 14px;border:1px solid var(--ln);border-radius:12px;background:var(--cd);color:var(--tx)}
-.chips{display:flex;gap:6px;margin-top:8px;overflow-x:auto}
-.chip{flex:none;border:1px solid var(--ln);background:var(--cd);color:var(--tx);border-radius:999px;padding:7px 12px;font:inherit;font-size:14px}
-.chip.on{background:var(--ac);color:#fff;border-color:var(--ac)}
-.opt{display:flex;justify-content:space-between;margin-top:8px;font-size:14px;color:var(--mu)}
-main{padding:10px 12px 24px;max-width:720px;margin:0 auto}
-.t{display:flex;gap:12px;align-items:center;background:var(--cd);border:1px solid var(--ln);border-radius:12px;padding:10px 12px;margin-bottom:8px}
+:root{--bg:#eef2f8;--cd:#fff;--tx:#10213f;--mu:#6a7890;--ac:#1565d8;--ln:#e0e7f1;--ok:#0b8f55;--okb:#dff5ea;--chip:#eef3fb;--h1:#1a73e8;--h2:#0a3f9c;--sh:0 1px 2px rgba(16,33,63,.06),0 6px 16px rgba(16,33,63,.06)}
+@media(prefers-color-scheme:dark){:root{--bg:#0b1118;--cd:#151e29;--tx:#e9eef6;--mu:#8e9bb0;--ac:#5aa9ff;--ln:#243040;--ok:#4cd199;--okb:#12382b;--chip:#1d2937;--h1:#2d6cdf;--h2:#17357d;--sh:none}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:env(safe-area-inset-bottom)}
+.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+header{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--h1),var(--h2));color:#fff;padding:calc(14px + env(safe-area-inset-top)) 16px 54px}
+header h1{margin:0;font-size:22px;display:flex;gap:10px;align-items:center}
+header h1 .i{width:28px;height:28px;stroke-width:1.6}
+header p{margin:4px 0 12px;font-size:13px;opacity:.85}
+.art{position:absolute;right:-18px;bottom:-6px;width:190px;opacity:.16}
+.calls{display:flex;gap:8px;position:relative}
+.calls a{display:flex;gap:6px;align-items:center;background:rgba(255,255,255,.18);color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:7px 12px;border-radius:999px}
+.calls .i{width:16px;height:16px}
+.panel{position:sticky;top:0;z-index:5;margin:-36px 12px 0;padding:10px;background:var(--cd);border-radius:18px;box-shadow:var(--sh)}
+.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--chip);border-radius:12px;padding:3px}
+.seg button{display:flex;gap:6px;align-items:center;justify-content:center;border:0;background:none;color:var(--mu);font:inherit;font-weight:600;padding:9px;border-radius:10px}
+.seg button.on{background:var(--cd);color:var(--ac);box-shadow:0 1px 4px rgba(16,33,63,.15)}
+.sr{display:flex;gap:8px;align-items:center;margin-top:8px;background:var(--chip);border-radius:12px;padding:0 12px;color:var(--mu)}
+.sr input{flex:1;min-width:0;border:0;background:none;font:inherit;color:var(--tx);padding:11px 0;outline:0}
+.days{display:flex;gap:6px;margin-top:8px;overflow-x:auto;scrollbar-width:none}
+.dp{flex:1 0 46px;display:flex;flex-direction:column;align-items:center;border:1px solid var(--ln);background:none;color:var(--tx);border-radius:12px;padding:6px 0;font:inherit}
+.dp i{font-style:normal;font-size:12px;color:var(--mu)}
+.dp b{font-size:17px}
+.dp.today i{color:var(--ac);font-weight:700}
+.dp.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.dp.on i{color:#fff}
+.opt{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:14px;color:var(--mu)}
+.sw{display:flex;gap:8px;align-items:center}
+.sw input{appearance:none;width:40px;height:24px;border-radius:12px;background:var(--ln);position:relative;margin:0;transition:.2s}
+.sw input:after{content:"";position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s}
+.sw input:checked{background:var(--ac)}
+.sw input:checked:after{left:19px}
+.clk{display:flex;gap:4px;align-items:center}
+main{padding:12px;max-width:720px;margin:0 auto}
+.hero{background:linear-gradient(135deg,var(--h1),var(--h2));color:#fff;border-radius:18px;padding:14px 16px;margin-bottom:12px;box-shadow:var(--sh);display:grid;grid-template-columns:1fr auto;gap:2px 12px;align-items:center}
+.hero .hl{grid-column:1/-1;font-size:12px;letter-spacing:.06em;text-transform:uppercase;opacity:.8}
+.ht{font-size:40px;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums}
+.hp{background:rgba(255,255,255,.2);padding:5px 12px;border-radius:999px;font-weight:600;font-size:14px;white-space:nowrap}
+.hn{grid-column:1/-1;font-size:18px;font-weight:700}
+.hm{grid-column:1/-1;font-size:13px;opacity:.9;display:flex;gap:12px;flex-wrap:wrap}
+.hm span{display:flex;gap:4px;align-items:center}
+.hero.off{display:flex;gap:12px;align-items:center;background:var(--cd);color:var(--mu);box-shadow:var(--sh)}
+.hero.off .i{width:32px;height:32px}
+.hero.off b{color:var(--tx);display:block}
+.cnt{font-size:13px;color:var(--mu);margin:0 4px 8px}
+.t{display:flex;gap:12px;align-items:center;background:var(--cd);border-radius:16px;padding:12px;margin-bottom:8px;box-shadow:var(--sh);animation:f .25s both}
+@keyframes f{from{opacity:0;transform:translateY(6px)}}
 .t.past{opacity:.45}
-.tm{font-size:22px;font-weight:700;min-width:64px}
+.tm{font-size:22px;font-weight:800;min-width:62px;font-variant-numeric:tabular-nums;position:relative;padding-right:12px;border-right:2px solid var(--ln)}
 .in{flex:1;min-width:0}
-.nm{font-weight:600}
-.sb{font-size:13px;color:var(--mu)}
-.soon{color:var(--ok);font-weight:600}
-.pl{text-align:center;font-size:12px;color:var(--mu)}
-.pl b{display:block;font-size:18px;color:var(--ac)}
-.note{color:var(--mu);font-size:13px;text-align:center;padding:14px 4px}
+.nm{font-weight:700}
+.mt{display:flex;gap:4px;align-items:center;font-size:13px;color:var(--mu);margin-top:1px}
+.mt .i{width:14px;height:14px}
+.cp{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px}
+.cp span{display:flex;gap:4px;align-items:center;background:var(--chip);color:var(--mu);font-size:12px;border-radius:8px;padding:2px 7px}
+.cp .i{width:12px;height:12px}
+.rt{display:flex;flex-direction:column;align-items:center;gap:6px}
+.pl{display:flex;flex-direction:column;align-items:center;background:var(--chip);border-radius:10px;padding:4px 8px;color:var(--ac);min-width:44px}
+.pl b{font-size:17px;line-height:1}
+.pl small{font-size:10px;color:var(--mu)}
+.sn{background:var(--okb);color:var(--ok);font-size:12px;font-weight:700;border-radius:999px;padding:2px 8px;white-space:nowrap}
+.empty{text-align:center;color:var(--mu);padding:32px 16px}
+.empty .i{width:56px;height:56px;stroke-width:1.2;opacity:.6}
+.empty p{margin:8px 0 2px;font-weight:700;color:var(--tx)}
+.note{display:flex;gap:8px;color:var(--mu);font-size:13px;padding:12px 6px}
 </style></head><body>
-<header><h1>Автобусы из Бреста</h1>
-<p>Пригородные рейсы · справка <a href="tel:+375162933704">93-37-04</a> или <a href="tel:114">114</a></p></header>
-<div class="bar">
-<div class="chips" id="dir"><button class="chip on" data-r="0">Из Бреста</button><button class="chip" data-r="1">В Брест</button></div>
-<input id="q" type="search" placeholder="Куда едем? Кобрин, Каменец…" style="margin-top:8px">
-<div class="chips" id="days"></div>
-<div class="opt"><label><input type="checkbox" id="up" checked> Только ближайшие</label><span id="clock"></span></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="bus" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="15" rx="3.5"/><path d="M4 11h16M8 18v2.5M16 18v2.5"/><circle cx="8.5" cy="14.5" r=".9" fill="currentColor"/><circle cx="15.5" cy="14.5" r=".9" fill="currentColor"/><path d="M9 6.5h6"/></symbol>
+<symbol id="out" viewBox="0 0 24 24"><path d="M4 12h15m-5-5 5 5-5 5"/></symbol>
+<symbol id="in" viewBox="0 0 24 24"><path d="M20 12H5m5-5-5 5 5 5"/><path d="M20 5v14"/></symbol>
+<symbol id="search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></symbol>
+<symbol id="phone" viewBox="0 0 24 24"><path d="M5 4h3.5l1.8 4.5-2.3 1.4a11 11 0 0 0 5.1 5.1l1.4-2.3L19 14.5V18a2 2 0 0 1-2 2A14 14 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol>
+<symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+<symbol id="route" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h6.5a3 3 0 0 0 0-6h-5a3 3 0 0 1 0-6H16"/></symbol>
+<symbol id="flag" viewBox="0 0 24 24"><path d="M6 21V4m0 0h11l-2.5 4 2.5 4H6"/></symbol>
+<symbol id="info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8v.01"/></symbol>
+</defs></svg>
+<header>
+<svg class="art" viewBox="0 0 190 90" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="20" y="12" width="150" height="56" rx="14"/><path d="M20 44h150M52 12v32M96 12v32M140 12v32"/><circle cx="55" cy="74" r="9" fill="#fff"/><circle cx="135" cy="74" r="9" fill="#fff"/></svg>
+<h1><svg class="i"><use href="#bus"/></svg>Автобусы из Бреста</h1>
+<p>Пригородные рейсы от автовокзала</p>
+<div class="calls"><a href="tel:+375162933704"><svg class="i"><use href="#phone"/></svg>93-37-04</a><a href="tel:114"><svg class="i"><use href="#phone"/></svg>114</a></div>
+</header>
+<div class="panel">
+<div class="seg" id="dir"><button class="on" data-r="0"><svg class="i"><use href="#out"/></svg>Из Бреста</button><button data-r="1"><svg class="i"><use href="#in"/></svg>В Брест</button></div>
+<label class="sr"><svg class="i"><use href="#search"/></svg><input id="q" type="search" placeholder="Куда едем? Кобрин, Каменец…" autocomplete="off"></label>
+<div class="days" id="days"></div>
+<div class="opt"><label class="sw"><input type="checkbox" id="up" checked>Только ближайшие</label><span class="clk"><svg class="i"><use href="#clock"/></svg><span id="clock"></span></span></div>
 </div>
-<main><div id="list"></div><div class="note" id="st">Загрузка…</div></main>
+<main><div id="hero"></div><div class="cnt" id="cnt"></div><div id="list"></div>
+<div class="note"><svg class="i"><use href="#info"/></svg><span id="st">Загрузка…</span></div></main>
 <script>
 const DN=['Пн','Вт','Ср','Чт','Пт','Сб','Вс'],$=i=>document.getElementById(i);
+const ic=(n)=>`<svg class="i"><use href="#${n}"/></svg>`;
 let T=[],day,q='',up=true,dir=0,upd='';
 const mm=s=>{const[h,m]=s.split(':');return h*60+ +m};
 const now=()=>{const d=new Date();return{d:d.getDay()||7,m:d.getHours()*60+d.getMinutes()}};
 day=now().d;
+const fix=n=>{n=n.replace(/"([^"]*)"/g,'«$1»');const m=n.match(/^(.*?)\s+((?:через|ч\/з)\s.*|до\s.*|\(.*)$/);return m?[m[1],m[2]]:[n,'']};
+const mk=(n,p,d,a,b,v,r)=>{const[t,w]=fix(n);return{t,w,p,d,a,b,v,r,m:mm(a),s:(n+' '+v).toLowerCase()}};
+const left=d=>d<60?d+' мин':Math.floor(d/60)+' ч'+(d%60?' '+d%60+' мин':'');
 function load(j,msg){
- upd=j.updated;T=[];
- j.out.forEach(([n,p,d,a,b,v])=>T.push({n,p,d,a,b,v,m:mm(a),r:0}));
- j.in.forEach(([n,d,a,b,v])=>T.push({n,p:'',d,a,b,v,m:mm(a),r:1}));
+ upd=j.updated;
+ T=j.out.map(([n,p,d,a,b,v])=>mk(n,p,d,a,b,v,0)).concat(j.in.map(([n,d,a,b,v])=>mk(n,'',d,a,b,v,1)));
  T.sort((x,y)=>x.m-y.m);
  $('st').textContent=(msg?msg+'. ':'')+'Расписание от '+upd+'. Уточняйте по справке 93-37-04 (7:45–20:00).';
  render()}
@@ -57,19 +116,29 @@ fetch('schedule.json',{cache:'no-cache'}).then(r=>r.json()).then(j=>{
  load(j)}).catch(()=>{
  let j=null;try{j=JSON.parse(localStorage.getItem('s'))}catch(e){}
  if(j)load(j,'Нет сети, показаны сохранённые данные');else $('st').textContent='Не удалось загрузить расписание'});
-function chips(){const td=now().d;$('days').innerHTML=DN.map((n,i)=>`<button class="chip${i+1==day?' on':''}" data-d="${i+1}">${n}${i+1==td?' · сегодня':''}</button>`).join('')}
+function chips(){
+ const td=new Date(),n=now();
+ $('days').innerHTML=DN.map((x,i)=>{const d=new Date(td);d.setDate(td.getDate()+(i+1-n.d));
+  return `<button class="dp${i+1==day?' on':''}${i+1==n.d?' today':''}" data-d="${i+1}"><i>${x}</i><b>${d.getDate()}</b></button>`}).join('')}
+function card(t,n,isT){
+ const df=t.m-n.m,soon=isT&&df>=0&&df<=60;
+ const ch=(t.w?`<span>${ic('route')}${t.w}</span>`:'')+(t.v?`<span>${ic('info')}${t.v}</span>`:'');
+ return `<article class="t${isT&&df<0?' past':''}"><div class="tm">${t.a}</div><div class="in"><div class="nm">${t.t}</div><div class="mt">${ic('clock')}${dir?'в Брест ':'прибытие '}${t.b}</div>${ch?`<div class="cp">${ch}</div>`:''}</div><div class="rt">${t.p?`<div class="pl">${ic('flag')}<b>${t.p}</b><small>платф.</small></div>`:''}${soon?`<span class="sn">${left(df)}</span>`:''}</div></article>`}
+function hero(t,n){
+ return `<div class="hero"><div class="hl">Ближайший рейс</div><div class="ht">${t.a}</div><div class="hp">через ${left(t.m-n.m)}</div><div class="hn">${t.t}</div><div class="hm"><span>${ic('clock')}${dir?'в Брест ':'прибытие '}${t.b}</span>${t.p?`<span>${ic('flag')}платформа ${t.p}</span>`:''}${t.w?`<span>${ic('route')}${t.w}</span>`:''}</div></div>`}
 function render(){
  const n=now(),isT=day==n.d,qq=q.trim().toLowerCase();
  $('clock').textContent=String(Math.floor(n.m/60)).padStart(2,'0')+':'+String(n.m%60).padStart(2,'0');
- let r=T.filter(t=>t.r==dir&&(t.d=='*'||t.d.includes(day))&&(!qq||(t.n+' '+t.v).toLowerCase().includes(qq)));
- if(up&&isT)r=r.filter(t=>t.m>=n.m);
- $('list').innerHTML=r.length?r.map(t=>{
-  const df=t.m-n.m,soon=isT&&df>=0&&df<=60;
-  return `<div class="t${isT&&df<0?' past':''}"><div class="tm">${t.a}</div><div class="in"><div class="nm">${dir?t.n+' → Брест':t.n}</div><div class="sb">${dir?'Прибытие в Брест ':'Прибытие '}${t.b}${t.v?' · '+t.v:''}</div>${soon?`<div class="sb soon">через ${df} мин</div>`:''}</div>${t.p?`<div class="pl">платф.<b>${t.p}</b></div>`:''}</div>`}).join(''):'<div class="note">Ничего не найдено. Попробуйте другой день или уберите «Только ближайшие».</div>'}
+ const all=T.filter(t=>t.r==dir&&(t.d=='*'||t.d.includes(day))&&(!qq||t.s.includes(qq)));
+ const nx=isT?all.find(t=>t.m>=n.m):null;
+ const list=up&&isT?all.filter(t=>t.m>=n.m):all;
+ $('hero').innerHTML=isT&&all.length?(nx?hero(nx,n):`<div class="hero off">${ic('bus')}<div><b>На сегодня рейсов больше нет</b>Выберите другой день</div></div>`):'';
+ $('cnt').textContent=list.length?'Рейсов: '+list.length:'';
+ $('list').innerHTML=list.length?list.map(t=>card(t,n,isT)).join(''):(T.length?`<div class="empty">${ic('bus')}<p>Рейсов не найдено</p>Попробуйте другой день или уберите «Только ближайшие»</div>`:'')}
 $('days').onclick=e=>{const b=e.target.closest('[data-d]');if(b){day=+b.dataset.d;chips();render()}};
 $('dir').onclick=e=>{const b=e.target.closest('[data-r]');if(b){dir=+b.dataset.r;[...$('dir').children].forEach(c=>c.classList.toggle('on',c==b));render()}};
 $('q').oninput=e=>{q=e.target.value;render()};
 $('up').onchange=e=>{up=e.target.checked;render()};
-chips();setInterval(()=>{chips();render()},60000);
+chips();render();setInterval(()=>{chips();render()},60000);
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
 </script></body></html>
